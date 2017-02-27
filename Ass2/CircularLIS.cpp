@@ -2,7 +2,8 @@
 using namespace std;
 
 int DMatrix[10000][10000] = {0};
-void CircularLIS(int arr[], int size, int j, int i, int length , int start)
+int Max = -1;
+void CircularLIS(int arr[], int size, int j, int i, int length, int start)
 {
 	int temp = 0;
 	if(start<size)
@@ -10,22 +11,25 @@ void CircularLIS(int arr[], int size, int j, int i, int length , int start)
 		i = i%size;
 		if (i!=start)
 		{
-			// if (DMatrix[j][i])
-			// {
-			// 	CircularLIS(arr,size,i,i+1,length + DMatrix[j][i],start);
-			// }
-			if(arr[i] > arr[j])
+			if (DMatrix[j][i])
 			{
-				temp = length +1;
+				CircularLIS(arr,size,i,i+1,length + DMatrix[j][i]-1,start);
 				CircularLIS(arr,size,j,i+1,length,start);
+			}
+			else if(arr[i] > arr[j])
+			{
+				DMatrix[start][i] = length +1;
 				CircularLIS(arr,size,i,i+1,length+1,start);
+				CircularLIS(arr,size,j,i+1,length,start);
 			}
 			else
 			{
 				temp = length;
 				CircularLIS(arr,size,j,i+1,length,start);
 			}
-			DMatrix[start][i] = max(temp,DMatrix[start][i]);
+			DMatrix[start][i] = temp;
+			if (Max < DMatrix[start][i])
+				Max = DMatrix[start][i];
 		}
 		else
 		{
@@ -38,31 +42,34 @@ void CircularLIS(int arr[], int size, int j, int i, int length , int start)
 int main()
 {
 	int* arr;
-	int n;
-	cin>>n;
+	int n,m;
 	arr = new int[n];
-	int k=0;
-	int Max = -1;
-	while(n--)
+	cin>>m;
+	while(m--)
 	{
-		cin>>arr[k];
-		k++;
-	}
-	DMatrix[0][0]=1;
-	if(k>0)
+		int k=0;
+		Max=-1;
+		cin>>n;
+		while(n--)
+		{
+			cin>>arr[k];
+			k++;
+		}
+		DMatrix[0][0]=1;
+		if(k>0)
 		{
 			CircularLIS(arr,k,0,1,1,0);
-			for (int i = 0; i < k; i++)
-			{
-				for (int j = 0; j < k; j++)
-				{
-					if(Max < DMatrix[j][i])
-						Max = DMatrix[j][i];
-				}
-			}
-			cout<<Max;
+			cout<<Max<<endl;
 		}
-	else
-		cout<<0;
+		else
+			cout<<0<<endl;
+		for (int i = 0; i < k; i++)
+		{
+			for (int j = 0; j < k; j++)
+			{
+				DMatrix[i][j]=0;
+			}
+		}
+	}
 	return 0;
 }
