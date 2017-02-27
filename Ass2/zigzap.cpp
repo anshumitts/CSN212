@@ -1,6 +1,6 @@
 /*
 Input format
-n
+n (number of numbers)
 1 2 ... n numbers
 
 Ouput : Longest Sequence

@@ -1,3 +1,23 @@
+/*
+
+m -> Number of Trial cases
+n -> Number of memebers
+
+eg 
+input:
+
+2
+3
+3 2 1
+6
+4 8 6 1 5 2
+
+ouput:
+2
+4
+
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
