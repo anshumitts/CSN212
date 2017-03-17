@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
+#include <ctime>// include this header 
 
 using namespace std;
 typedef pair <int,int> pii;
 typedef pair <float,pii> pfpii;
 
-
 int* bellFoll(pfpii Edges[],int V, int E, int S)
 {
 	float W;
 	int v,u;
-	int* d = new int[V];
+	int *d = new int[v];
 	for (int i = 0; i < V; i++)
 	{
 		d[i]= INT_MAX;
@@ -36,13 +36,15 @@ int* bellFoll(pfpii Edges[],int V, int E, int S)
 		v = Edges[j].second.second;
 		if (d[v]>d[u]+W)
 		{
-			return '\0';
+			return NULL;
 		}
 	}
 	return d;
 }
 int main()
 {
+	suseconds_t timer1,timer2;
+	float seconds;
 	int T,V,E,S;
 	int u,v;
 	float w;
@@ -50,7 +52,7 @@ int main()
 	cin>>T;
 	while(T--)
 	{
-		cin>>V>>E>>S;
+		cin>>V>>E;
 		tempE = E;
 		pfpii *Edges = new pfpii[E];
 		int* Dist = new int[V];
@@ -59,26 +61,29 @@ int main()
 			cin>>u>>w>>v;
 			Edges[tempE] = pfpii(w,pii(u-1,v-1));
 		}
-		Dist = bellFoll(Edges,V,E,S);
-		if (Dist)
-		{
-			for (int i = 0; i < V; i++)
-			{
-				if (Dist[i]!=INT_MAX)
-				{
-					cout<<i+1<<'\t'<<Dist[i]<<endl;
-				}
-				else
-				{
-					cout<<i+1<<'\t'<<"Does not exists"<<endl;	
-				}
-			}
-		}
-		else
-		{
-			cout<<"negative cycle exists!!!";
-		}
-		cout<<'\n';
+	  	int start_s=clock();
+	  	Dist = bellFoll(Edges,V,E,1);
+	  	int stop_s=clock();
+    	// if (Dist)
+		// {
+		// 	for (int i = 0; i < V; i++)
+		// 	{
+		// 		if (Dist[i]!=INT_MAX)
+		// 		{
+		// 			cout<<i+1<<'\t'<<Dist[i]<<endl;
+		// 		}
+		// 		else
+		// 		{
+		// 			cout<<i+1<<'\t'<<"Does not exists"<<endl;	
+		// 		}
+		// 	}
+		// }
+		// else
+		// {
+		// 	cout<<"negative cycle exists!!!";
+		// }
+		printf ("%d, %d, %.5f\n", V, E, (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000);
+		delete [] Dist;
 	}
 	return 0;
 }
