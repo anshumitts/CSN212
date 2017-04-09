@@ -16,18 +16,16 @@ p0=None
 A = None
 B = None
 def draw_hull(hull,pts,string,keys):
-	pass
-	# image = np.zeros((uper+10,lowr+10,3),np.uint8)
-	# if(hull):
-	# 	n = len(hull)
-	# 	for i in range(n):
-	# 		cv2.line(image,(hull[i].x+5,uper-hull[i].y+5),(hull[(i+1)%n].x+5,uper-hull[(i+1)%n].y+5),(0,0,255),2)
-	# for pt in pts:
-	# 	cv2.circle(image,(pt.x+5,uper-pt.y+5), 4, (np.random.randint(150)+100,np.random.randint(150)+100,0), -1)
-	# for key in keys:
-	# 	cv2.circle(image,(key.x+5,uper-key.y+5), 4, (255,255,255), -1)
-	# cv2.imshow(str(string),image)
-	# cv2.imwrite(str(string)+'.png',image)
+	image = np.zeros((uper+10,lowr+10,3),np.uint8)
+	if(hull):
+		n = len(hull)
+		for i in range(n):
+			cv2.line(image,(hull[i].x+5,uper-hull[i].y+5),(hull[(i+1)%n].x+5,uper-hull[(i+1)%n].y+5),(0,0,255),2)
+	for pt in pts:
+		cv2.circle(image,(pt.x+5,uper-pt.y+5), 4, (np.random.randint(150)+100,np.random.randint(150)+100,0), -1)
+	for key in keys:
+		cv2.circle(image,(key.x+5,uper-key.y+5), 4, (255,255,255), -1)
+	cv2.imwrite(str(string)+'.png',image)
 
 
 class points(object):
